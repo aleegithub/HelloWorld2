@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">你好世界</string>
+    <string name="hello_world">你好世界!</string>
+    <string name="text">你想做什么?</string>
+    <string name="action_settings">配置</string>
+    <string name="bttn1">展会信息</string>
+    <string name="bttn2">实验</string>
+
+</resources>
