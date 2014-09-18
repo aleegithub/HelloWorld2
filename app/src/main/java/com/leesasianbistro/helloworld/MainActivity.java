@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import java.util.Locale;
 
 
@@ -19,6 +18,7 @@ public class MainActivity extends Activity {
     Button showMsgButton;
     Button newbutton;
     Switch sw1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +36,35 @@ public class MainActivity extends Activity {
 
         newbutton = (Button) findViewById(R.id.btNew);
 
-       /* newbutton.setOnClickListener(new View.OnClickListener() {
+       newbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
         sw1 = (Switch) findViewById(R.id.switch1);
         sw1.setTextOff("English");
         sw1.setTextOn("中文");
         sw1.setChecked(false);
+
+        sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (sw1.isChecked()) {
+
+                    String languageToLoad  = "zh"; // your language
+                    Locale locale = new Locale(languageToLoad);
+                    Locale.setDefault(locale);
+                    Configuration config = new Configuration();
+                    config.locale = locale;
+                    getBaseContext().getResources().updateConfiguration(config,
+                            getBaseContext().getResources().getDisplayMetrics());
+                    //this.setContentView(R.layout.main);
+
+                }
+            }
+        });
 
 
     }
