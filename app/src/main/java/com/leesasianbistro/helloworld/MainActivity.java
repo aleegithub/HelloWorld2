@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -17,7 +18,8 @@ public class MainActivity extends Activity {
 
     Button showMsgButton;
     Button newbutton;
-    Switch sw1;
+    Button ch;
+    //Switch sw1;
 
 
     @Override
@@ -36,14 +38,32 @@ public class MainActivity extends Activity {
 
         newbutton = (Button) findViewById(R.id.btNew);
 
-       newbutton.setOnClickListener(new View.OnClickListener() {
+        newbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
             }
         });
 
-        sw1 = (Switch) findViewById(R.id.switch1);
+        ch = (Button) findViewById(R.id.activateCh);
+
+        ch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Locale locale = new Locale("zh");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+
+                View vg = findViewById(R.id.layout);
+                vg.invalidate();
+
+            }
+        });
+
+        /*sw1 = (Switch) findViewById(R.id.switch1);
         sw1.setTextOff("English");
         sw1.setTextOn("中文");
         sw1.setChecked(false);
@@ -53,18 +73,18 @@ public class MainActivity extends Activity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (sw1.isChecked()) {
 
-                    String languageToLoad  = "zh"; // your language
-                    Locale locale = new Locale(languageToLoad);
+                    Locale locale = new Locale("zh");
                     Locale.setDefault(locale);
                     Configuration config = new Configuration();
                     config.locale = locale;
                     getBaseContext().getResources().updateConfiguration(config,
                             getBaseContext().getResources().getDisplayMetrics());
-                    //this.setContentView(R.layout.main);
 
                 }
             }
-        });
+        });*/
+
+
 
 
     }
