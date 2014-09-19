@@ -6,6 +6,8 @@
     <string name="text">你想做什么?</string>
     <string name="action_settings">配置</string>
     <string name="bttn1">展会信息</string>
-    <string name="bttn2">实验</string>
+    <string name="bttn2">保存</string>
+    <string name="hint1">钱</string>
+    <string name="hint2">信用卡的钱</string>
 
 </resources>

@@ -5,8 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="text">What would you like to do?</string>
     <string name="action_settings">Settings</string>
-    <string name="bttn1">Show Message</string>
-    <string name="bttn2">Test</string>
+    <string name="bttn1">Calculate Cash Amt.</string>
+    <string name="bttn2">Save</string>
     <string name="中文">中文</string>
+    <string name="hint1">Business Amt.</string>
+    <string name="hint2">Credit Card Amt.</string>
+    <string name="hint3">Cash Amt.</string>
 
 </resources>

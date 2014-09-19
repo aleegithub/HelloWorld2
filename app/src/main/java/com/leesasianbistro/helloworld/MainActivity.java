@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 import java.util.Locale;
@@ -19,6 +20,7 @@ public class MainActivity extends Activity {
     Button showMsgButton;
     Button newbutton;
     Button ch;
+    //EditText busAmt, ccAmt, cashAmt;
     //Switch sw1;
 
 
@@ -26,15 +28,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        showMsgButton = (Button) findViewById(R.id.bttnShwMsg);
-
-        showMsgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Hello World!", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         newbutton = (Button) findViewById(R.id.btNew);
 
@@ -45,7 +38,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        ch = (Button) findViewById(R.id.activateCh);
+        /*ch = (Button) findViewById(R.id.activateCh);
 
         ch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +54,7 @@ public class MainActivity extends Activity {
                 vg.invalidate();
 
             }
-        });
+        });*/
 
         /*sw1 = (Switch) findViewById(R.id.switch1);
         sw1.setTextOff("English");
@@ -84,8 +77,26 @@ public class MainActivity extends Activity {
             }
         });*/
 
+        final EditText busAmtField = (EditText) findViewById(R.id.bus_amt);
+        final EditText ccAmtField = (EditText) findViewById(R.id.cc_amt);
+        final EditText cashAmtField = (EditText) findViewById(R.id.cash_amt);
 
+        final Integer  busAmt = busAmtField.getInputType();
+        final Integer ccAmt = ccAmtField.getInputType();
 
+        if ( (busAmt != 0) && (ccAmt != 0) ) {
+
+            showMsgButton = (Button) findViewById(R.id.bttnShwMsg);
+
+            showMsgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Integer cashAmt = busAmt - ccAmt;
+                    cashAmtField.setText(cashAmt.toString(), null);
+                }
+            });
+
+        }
 
     }
 
