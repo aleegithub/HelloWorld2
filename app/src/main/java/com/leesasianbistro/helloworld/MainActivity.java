@@ -12,8 +12,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+import java.math.*;
+import java.util.Currency;
 import java.util.Locale;
-
 
 public class MainActivity extends Activity {
 
@@ -81,42 +82,44 @@ public class MainActivity extends Activity {
         final EditText ccAmtField = (EditText) findViewById(R.id.cc_amt);
         final EditText cashAmtField = (EditText) findViewById(R.id.cash_amt);
 
-        final Integer  busAmt = busAmtField.getInputType();
-        final Integer ccAmt = ccAmtField.getInputType();
 
-        if ( (busAmt != 0) && (ccAmt != 0) ) {
+        showMsgButton = (Button) findViewById(R.id.bttnShwMsg);
 
-            showMsgButton = (Button) findViewById(R.id.bttnShwMsg);
+        showMsgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            showMsgButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Integer cashAmt = busAmt - ccAmt;
-                    cashAmtField.setText(cashAmt.toString(), null);
-                }
-            });
+                final String busAmt = busAmtField.getText().toString();
+                final String ccAmt = ccAmtField.getText().toString();
 
-        }
+                final BigDecimal busAmtInt = new BigDecimal(busAmt);
+                final BigDecimal ccAmtInt = new BigDecimal(ccAmt);
 
+                BigDecimal cashAmt = busAmtInt.subtract(ccAmtInt);
+                cashAmtField.setText(cashAmt.toString(), null);
+
+
+            }
+
+        });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.main, menu);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+            if (id == R.id.action_settings) {
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
     }
-}
