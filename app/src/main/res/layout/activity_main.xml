@@ -1,6 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/mainLayout"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:id="@+id/textView" />
 
     <Button
@@ -22,27 +25,25 @@
         android:text="@string/bttn2"
         android:id="@+id/btNew"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/cash_amt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bttn1"
         android:id="@+id/bttnShwMsg"
-        android:layout_gravity="center"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_alignBottom="@+id/cc_amt"
-        android:layout_alignRight="@+id/activateCh"
-        android:layout_alignEnd="@+id/activateCh" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cc_amt"
+        android:textSize="20sp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/中文"
         android:id="@+id/activateCh"
-        android:layout_gravity="end|top"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -50,12 +51,15 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:id="@+id/bus_amt"
-        android:layout_marginTop="20dp"
+        android:hint="@string/hint1"
+        android:textSize="25sp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/hint1"
-        android:inputType="numberDecimal" />
+        android:layout_marginTop="29dp"
+        android:layout_alignRight="@+id/activateCh"
+        android:layout_alignEnd="@+id/activateCh" />
 
     <EditText
         android:layout_width="210dp"
@@ -65,17 +69,25 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="@string/hint2"
-        android:inputType="numberDecimal" />
+        android:textSize="25sp"
+        android:inputType="numberDecimal"
+        android:layout_alignRight="@+id/bus_amt"
+        android:layout_alignEnd="@+id/bus_amt" />
 
     <EditText
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:id="@+id/cash_amt"
+        android:hint="@string/hint3"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_below="@+id/cc_amt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/hint3" />
+        android:layout_marginTop="68dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

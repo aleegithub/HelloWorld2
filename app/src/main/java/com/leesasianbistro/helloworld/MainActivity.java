@@ -1,34 +1,46 @@
 package com.leesasianbistro.helloworld;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
-import java.math.*;
-import java.util.Currency;
-import java.util.Locale;
+import java.math.BigDecimal;
+import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends Activity {
 
     Button showMsgButton;
     Button newbutton;
-    Button ch;
-    //EditText busAmt, ccAmt, cashAmt;
-    //Switch sw1;
-
+    //Button ch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*ch = (Button) findViewById(R.id.activateCh);
+
+        ch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Locale locale = new Locale("zh");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+
+            }
+        });
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);*/
 
         newbutton = (Button) findViewById(R.id.btNew);
 
@@ -38,24 +50,6 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*ch = (Button) findViewById(R.id.activateCh);
-
-        ch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Locale locale = new Locale("zh");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-
-                View vg = findViewById(R.id.layout);
-                vg.invalidate();
-
-            }
-        });*/
 
         /*sw1 = (Switch) findViewById(R.id.switch1);
         sw1.setTextOff("English");
@@ -82,9 +76,7 @@ public class MainActivity extends Activity {
         final EditText ccAmtField = (EditText) findViewById(R.id.cc_amt);
         final EditText cashAmtField = (EditText) findViewById(R.id.cash_amt);
 
-
         showMsgButton = (Button) findViewById(R.id.bttnShwMsg);
-
         showMsgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,34 +84,47 @@ public class MainActivity extends Activity {
                 final String busAmt = busAmtField.getText().toString();
                 final String ccAmt = ccAmtField.getText().toString();
 
-                final BigDecimal busAmtInt = new BigDecimal(busAmt);
-                final BigDecimal ccAmtInt = new BigDecimal(ccAmt);
+                if ( (busAmt.length() != 0) && (ccAmt.length() != 0) ) {
 
-                BigDecimal cashAmt = busAmtInt.subtract(ccAmtInt);
-                cashAmtField.setText(cashAmt.toString(), null);
+                    final BigDecimal busAmtInt = new BigDecimal(busAmt);
+                    final BigDecimal ccAmtInt = new BigDecimal(ccAmt);
 
+                    //busAmtField.setText("$" + busAmt);
+                    //ccAmtField.setText("$" + ccAmt);
+                    //Would like to format text as focus leaves the field but then reformat back to BigDecimal when in focus
 
+                    BigDecimal cashAmt = busAmtInt.subtract(ccAmtInt);
+                    cashAmtField.setText("$" + cashAmt.toString(), TextView.BufferType.NORMAL);
+
+                    //Hide keyboard after calculation is finished
+                    InputMethodManager imm = (InputMethodManager)getSystemService(
+                            INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(ccAmtField.getWindowToken(), 0);
+
+                } else{
+                    Toast.makeText(getApplicationContext(), "Error yo, Enter some numbers!", Toast.LENGTH_LONG).show();
+                }
             }
 
         });
     }
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.main, menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
             return true;
         }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
+}
